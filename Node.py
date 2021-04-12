@@ -74,7 +74,15 @@ class Node:
                                     if x-1 >= 0 and new_state[x-1][y] != '#':
                                         new_state[x][y], new_state[x-1][y] = new_state[x-1][y], new_state[x][y]
                                         changed = True
-                                    elif y+1 < m and new_state[x][y+1] != '#':
+
+                    # Simulam mutarea la stanga a literelor.
+                    changed = True
+                    while changed:
+                        changed = False
+                        for x in range(n):
+                            for y in range(m):
+                                if new_state[x][y] == '#':
+                                    if y+1 < m and new_state[x][y+1] != '#':
                                         new_state[x][y], new_state[x][y+1] = new_state[x][y+1], new_state[x][y]
                                         changed = True
 
