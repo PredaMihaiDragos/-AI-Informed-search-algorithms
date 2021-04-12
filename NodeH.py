@@ -3,14 +3,16 @@ from copy import copy, deepcopy
 from string import ascii_lowercase
 from typing import Dict
 
+
 class NodeH(Node):
     """Extinde clasa Node continand estimarea <h>.
     """
-    def __init__(self, x: Node, euristic = "banal"):
+
+    def __init__(self, x: Node, euristic="banal"):
         super().__init__(x.info, x.cost, x.parinte)
         self.h = self.calculate_h(euristic)
 
-    def generate_next(self, euristic = "banal"):
+    def generate_next(self, euristic="banal"):
         # Preluam starile care nu contin estimarea.
         states = super().generate_next()
 
@@ -23,7 +25,7 @@ class NodeH(Node):
 
     def calculate_h(self, euristic: str):
         if euristic == "banal":
-            if self.final() == False:
+            if self.final() is False:
                 return 1
             return 0
         elif euristic == "adm1":
@@ -41,13 +43,13 @@ class NodeH(Node):
             for c in ascii_lowercase:
                 if c in freq and freq[c] != 0:
                     cost_total += 1
-            
+
             return cost_total
         elif euristic == "adm2":
             # Aceasta euristica ne da costul minim al urmatoarei mutari.
             n = len(self.info)
             m = len(self.info[0])
-            min_cost = float(n*m+1)
+            min_cost = float(n * m + 1)
 
             # Calculam frecventa fiecarei litere.
             freq = {}
@@ -73,7 +75,7 @@ class NodeH(Node):
                         # Actualizam minimul.
                         min_cost = min(min_cost, cost)
 
-            if min_cost == n*m+1:
+            if min_cost == n * m + 1:
                 min_cost = 0
 
             # Returnam costul minim al unei mutari.

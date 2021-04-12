@@ -1,10 +1,11 @@
 from copy import copy, deepcopy
 from typing import List, Dict
 
+
 class Node:
-    def __init__(self, info: List[List[str]], cost: int, parinte):
+    def __init__(self, info: List[List[str]], cost: float, parinte):
         self.info: List[List[str]] = info
-        self.cost: int = cost
+        self.cost: float = cost
         self.parinte: Node = parinte  # parintele din arborele de parcurgere
 
     def get_path(self):
@@ -29,7 +30,7 @@ class Node:
                 file.write(''.join(x) + "\n")
             file.write("Cost mutare: " + str(stari[i].cost - stari[i].parinte.cost) + "\n")
             file.write("\n")
-        file.write("S-au realizat " + str(len(stari)-1) + " mutari cu costul " + str(self.cost) + ".\n")
+        file.write("S-au realizat " + str(len(stari) - 1) + " mutari cu costul " + str(self.cost) + ".\n")
 
     def final(self) -> bool:
         """Verifica daca starea curenta este stare finala sau nu.
@@ -42,7 +43,7 @@ class Node:
             for c in line:
                 if c != '#':
                     return False
-        
+
         return True
 
     def generate_next(self):
@@ -63,7 +64,7 @@ class Node:
                     nr_deleted = self.fill(new_state, vis, i, j)
                     if nr_deleted < 3:
                         continue
-                    
+
                     # Simulam caderea literelor: atat timp cat a "cazut" o litera, continuam.
                     changed = True
                     while changed:
@@ -71,8 +72,8 @@ class Node:
                         for x in range(n):
                             for y in range(m):
                                 if new_state[x][y] == '#':
-                                    if x-1 >= 0 and new_state[x-1][y] != '#':
-                                        new_state[x][y], new_state[x-1][y] = new_state[x-1][y], new_state[x][y]
+                                    if x - 1 >= 0 and new_state[x - 1][y] != '#':
+                                        new_state[x][y], new_state[x - 1][y] = new_state[x - 1][y], new_state[x][y]
                                         changed = True
 
                     # Simulam mutarea la stanga a literelor.
@@ -82,26 +83,26 @@ class Node:
                         for x in range(n):
                             for y in range(m):
                                 if new_state[x][y] == '#':
-                                    if y+1 < m and new_state[x][y+1] != '#':
-                                        new_state[x][y], new_state[x][y+1] = new_state[x][y+1], new_state[x][y]
+                                    if y + 1 < m and new_state[x][y + 1] != '#':
+                                        new_state[x][y], new_state[x][y + 1] = new_state[x][y + 1], new_state[x][y]
                                         changed = True
 
                     # Cautam cate placute avem de culoarea (i, j) in total.
                     nr_total = 0
                     for x in range(n):
-                            for y in range(m):
-                                if self.info[x][y] == self.info[i][j]:
-                                    nr_total += 1
-                    
+                        for y in range(m):
+                            if self.info[x][y] == self.info[i][j]:
+                                nr_total += 1
+
                     # Calculam costul dupa formula data.
                     cost = 1 + (nr_total - nr_deleted) / nr_total
-                
+
                     node = Node(new_state, self.cost + cost, self)
 
                     if node.can_be_sol():
                         new_states.append(node)
 
-        return new_states  
+        return new_states
 
     @staticmethod
     def fill(mat: List[List[str]], vis: List[List[bool]], start_x: int, start_y: int) -> int:
@@ -127,9 +128,9 @@ class Node:
             new_x = start_x + dx[i]
             new_y = start_y + dy[i]
 
-            if new_x >= 0 and new_x < n and new_y >= 0 and new_y < m and mat[new_x][new_y] == c and vis[new_x][new_y] == False:
+            if 0 <= new_x < n and 0 <= new_y < m and mat[new_x][new_y] == c and vis[new_x][new_y] is False:
                 ret += Node.fill(mat, vis, new_x, new_y)
-        
+
         return ret
 
     # Functie de la laborator
@@ -166,6 +167,5 @@ class Node:
             for c in line:
                 if freq[c] < 3:
                     return False
-        
-        return True
 
+        return True

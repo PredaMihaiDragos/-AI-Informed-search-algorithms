@@ -1,6 +1,10 @@
+import typing
+
+import Node
 from NodeH import NodeH
 from time import time
 from typing import List
+
 
 def astaropt(start_state, out_file_name, n_sol, euristic):
     """Functia care face AStar Optimizat si afiseaza raspunsul in out_file.
@@ -23,7 +27,7 @@ def astaropt(start_state, out_file_name, n_sol, euristic):
     # Numarul total de noduri calculate.
     total_nodes = 0
 
-    while (len(open_list) > 0):
+    while len(open_list) > 0:
         current: Node = open_list.pop(0)
         closed_list.append(current)
 

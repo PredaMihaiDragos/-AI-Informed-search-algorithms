@@ -1,5 +1,9 @@
-from NodeH import NodeH
+import typing
 from time import time
+
+import Node
+from NodeH import NodeH
+
 
 def astar(start_state, out_file_name, n_sol, euristic):
     """Functia care face AStar si afiseaza raspunsul in out_file.
@@ -23,7 +27,7 @@ def astar(start_state, out_file_name, n_sol, euristic):
 
     x = 0
 
-    while (len(c) > 0):
+    while len(c) > 0:
         current: Node = c.pop(0)
 
         # Daca am ajuns in nodul destinatie, afisam drumul.

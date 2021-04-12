@@ -1,5 +1,8 @@
+import typing
+
 from Node import Node
 from time import time
+
 
 def ucs(start_state, out_file_name, n_sol):
     """Functia care face UCS si afiseaza raspunsul in out_file.
@@ -21,7 +24,7 @@ def ucs(start_state, out_file_name, n_sol):
     # Numarul total de noduri calculate.
     total_nodes = 0
 
-    while (len(c) > 0):
+    while len(c) > 0:
         current: Node = c.pop(0)
 
         # Daca am ajuns in nodul destinatie, afisam drumul.

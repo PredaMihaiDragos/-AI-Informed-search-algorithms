@@ -1,3 +1,5 @@
+import typing
+
 from NodeH import NodeH
 from time import time
 from typing import List, TextIO
@@ -14,6 +16,7 @@ nodes_in_memory = 0
 
 # Timpul de inceput al programului.
 start_time = 0
+
 
 def idastar_util(current_state: NodeH, lim: float, euristic: str, file: TextIO):
     """Aici se intampla tot algoritmul.

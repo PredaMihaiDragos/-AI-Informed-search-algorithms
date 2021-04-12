@@ -1,9 +1,12 @@
-from UCS import ucs
+import multiprocessing
+import typing
+
 from AStar import astar
 from AStarOpt import astaropt
 from IDAStar import idastar
+from UCS import ucs
 from read import read_state
-import multiprocessing
+
 
 def main():
     # Citim de la tastatura numarul algoritmului pe care il vrem.
@@ -36,13 +39,13 @@ def main():
             continue
 
         # Pornim algoritmul ca proces separat pentru a putea avea un timeout.
-        if (alg == "1"):
+        if alg == "1":
             p = multiprocessing.Process(target=ucs, args=(start_state, out_file_name, n_sol,))
-        elif (alg == "2"):
+        elif alg == "2":
             p = multiprocessing.Process(target=astar, args=(start_state, out_file_name, n_sol, euristic,))
-        elif (alg == "3"):
+        elif alg == "3":
             p = multiprocessing.Process(target=astaropt, args=(start_state, out_file_name, n_sol, euristic,))
-        elif (alg == "4"):
+        elif alg == "4":
             p = multiprocessing.Process(target=idastar, args=(start_state, out_file_name, n_sol, euristic,))
         p.start()
 

@@ -2,10 +2,11 @@ from Node import Node
 from NodeH import NodeH
 from copy import copy, deepcopy
 
+
 class NodeOpt(NodeH):
     """Extinde clasa NodeH, schimband functia de generat succesori.
     """
-    def __init__(self, x: Node, euristic = "banal"):
+    def __init__(self, x: Node, euristic="banal"):
         super().__init__(x, euristic)
 
     def generate_next(self, current_list, euristic):
@@ -47,9 +48,9 @@ class NodeOpt(NodeH):
                     # Cautam cate placute avem de culoarea (i, j) in total.
                     nr_total = 0
                     for x in range(n):
-                            for y in range(m):
-                                if self.info[x][y] == self.info[i][j]:
-                                    nr_total += 1
+                        for y in range(m):
+                            if self.info[x][y] == self.info[i][j]:
+                                nr_total += 1
                     
                     # Calculam costul dupa formula data.
                     cost = 1 + (nr_total - nr_deleted) / nr_total
